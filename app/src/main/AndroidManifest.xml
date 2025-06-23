@@ -13,6 +13,18 @@
         android:theme="@style/Theme.Estacionamiento"
         tools:targetApi="31">
         <activity
+            android:name=".HistoriaReservaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ReservaStatusActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ReservaRealizadaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ReservaCrearActivity"
+            android:exported="false" />
+        <activity
             android:name=".PrincipalActivity"
             android:exported="true">
             <intent-filter>
