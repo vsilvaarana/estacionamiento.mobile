@@ -4,28 +4,62 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class PrincipalActivity : AppCompatActivity() {
+class DisponibilidadActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_principal)
+        setContentView(R.layout.activity_disponibilidad)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        val btnIr = findViewById<Button>(R.id.btnIr)
+        val pisos = arrayOf(
+            "Piso 1",
+            "Piso 2",
+            "Piso 3",
+            "Piso 4",
+            "Piso 5"
+        )
+        val spinner = findViewById<Spinner>(R.id.spPisos)
+        if (spinner != null){
+            val  adaptador = ArrayAdapter(
+                this,
+                android.R.layout.simple_spinner_item,
+                pisos
+            )
+            spinner.adapter = adaptador
 
-        btnIr.setOnClickListener {
-            var intent = Intent(this, ReservaHistoriaActivity::class.java)
-            startActivity(intent)
+            spinner.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener{
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    Toast.makeText(
+                        this@DisponibilidadActivity,
+                        pisos[position],
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    TODO("Not yet implemented")
+                }
+            }
         }
     }
 
@@ -42,11 +76,6 @@ class PrincipalActivity : AppCompatActivity() {
             }
             R.id.menu_disponibilidad -> {
                 var intent = Intent(this, DisponibilidadActivity::class.java)
-                startActivity(intent)
-            }
-
-            R.id.menu_cerrar_sesion -> {
-                var intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
             }
         }

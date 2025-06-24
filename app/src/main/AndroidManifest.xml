@@ -16,9 +16,6 @@
             android:name=".ReservaHistoriaActivity"
             android:exported="false" />
         <activity
-            android:name=".HistoriaReservaActivity"
-            android:exported="false" />
-        <activity
             android:name=".ReservaStatusActivity"
             android:exported="false" />
         <activity
@@ -28,7 +25,13 @@
             android:name=".ReservaCrearActivity"
             android:exported="false" />
         <activity
-            android:name=".PrincipalActivity"
+            android:name=".CrearUsuarioActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,6 +39,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".PrincipalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DisponibilidadActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

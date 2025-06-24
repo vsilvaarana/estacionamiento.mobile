@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_inicio"
+        android:title="Inicio"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_disponibilidad"
+        android:title="Consultar Disponibilidad"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_historial"
+        android:title="Historial de reservas"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_vehiculos"
+        android:title="Mis vehículos"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_reserva_activa"
+        android:title="Reserva activa"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_realizar_reserva"
+        android:title="Realizar una reserva"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_cerrar_sesion"
+        android:title="Cerrar Sesión"
+        app:showAsAction="never" />
+</menu>
