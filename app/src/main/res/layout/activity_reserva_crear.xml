@@ -17,7 +17,7 @@
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:text="Reserve"
+            android:text="Reserva"
             android:textSize="40sp"/>
     </LinearLayout>
     <LinearLayout
@@ -159,8 +159,8 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="Reserve"
             android:paddingLeft="50dp"
-            android:paddingRight="50dp"/>
+            android:paddingRight="50dp"
+            android:text="Reserva" />
     </LinearLayout>
 </LinearLayout>

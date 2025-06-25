@@ -45,30 +45,32 @@
         android:id="@+id/txtCorreo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Correo electrónico"
-        android:inputType="textEmailAddress"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#666"
         android:drawableStart="@drawable/ic_mail"
         android:drawablePadding="8dp"
-        android:backgroundTint="#666"
-        app:layout_constraintTop_toBottomOf="@id/tvTitleLogin"
-        app:layout_constraintStart_toStartOf="parent"
+        android:hint="Correo electrónico"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitleLogin" />
 
     <!-- Contraseña -->
     <EditText
         android:id="@+id/txtContrasena"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Contraseña"
-        android:inputType="textPassword"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#666"
         android:drawableStart="@drawable/ic_lock"
         android:drawablePadding="8dp"
-        android:backgroundTint="#666"
-        app:layout_constraintTop_toBottomOf="@id/txtCorreo"
-        app:layout_constraintStart_toStartOf="parent"
+        android:hint="Contraseña"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtCorreo" />
 
     <!-- Mostrar contraseña -->
     <CheckBox
@@ -96,16 +98,17 @@
         android:id="@+id/tvForgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="¿Olvidaste tu contraseña?"
-        android:textColor="#0A57B8"
-        android:textStyle="bold"
-        android:textSize="14sp"
+        android:layout_marginTop="16dp"
         android:clickable="true"
         android:focusable="true"
-        app:layout_constraintTop_toBottomOf="@id/btnLogin"
-        app:layout_constraintStart_toStartOf="parent"
+        android:minHeight="48dp"
+        android:text="¿Olvidaste tu contraseña?"
+        android:textColor="#0A57B8"
+        android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnLogin" />
 
     <!-- ¿No tiene una cuenta? -->
     <TextView
@@ -126,15 +129,16 @@
         android:id="@+id/tvSignUpText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Regístrate"
-        android:textColor="#0A57B8"
-        android:textStyle="bold"
-        android:textSize="14sp"
+        android:layout_marginBottom="32dp"
         android:clickable="true"
         android:focusable="true"
+        android:minHeight="48dp"
+        android:text="Regístrate"
+        android:textColor="#0A57B8"
+        android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="32dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

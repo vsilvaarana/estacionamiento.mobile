@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ReservaHistoriaActivity">
+    tools:context=".UsuarioVehiculoActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,31 +17,10 @@
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:text="Historial"
+            android:text="Mis Vehiculos"
             android:textSize="40sp"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center_horizontal"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:orientation="horizontal">
-        <TextView android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Date"
-            android:textSize="20sp"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="text"
-            android:minHeight="48dp"
-            android:gravity="end"
-            android:text="01/06/2025 - 30/06/2025"/>
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,16 +29,15 @@
         android:orientation="vertical">
 
         <ListView
-            android:id="@+id/lstReservas"
+            android:id="@+id/lstUsuarioVehiculo"
             android:layout_width="match_parent"
             android:layout_height="400dp" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Exportar"
+            android:text="Grabar"
             android:paddingLeft="50dp"
             android:paddingRight="50dp"/>
     </LinearLayout>
-
 </LinearLayout>
