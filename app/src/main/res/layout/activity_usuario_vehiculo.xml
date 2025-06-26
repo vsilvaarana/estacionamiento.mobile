@@ -19,6 +19,7 @@
             android:layout_marginTop="25dp"
             android:text="Mis Vehiculos"
             android:textSize="40sp"/>
+
     </LinearLayout>
 
 
@@ -28,16 +29,23 @@
         android:layout_margin="25dp"
         android:orientation="vertical">
 
+
         <ListView
             android:id="@+id/lstUsuarioVehiculo"
             android:layout_width="match_parent"
             android:layout_height="400dp" />
 
-        <Button
-            android:layout_width="match_parent"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabAgregar"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Grabar"
-            android:paddingLeft="50dp"
-            android:paddingRight="50dp"/>
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="280dp"
+            android:contentDescription="Agregar"
+            android:src="@drawable/ic_add"
+            app:backgroundTint="@color/purple_500"
+            app:tint="@android:color/white" />
+
     </LinearLayout>
 </LinearLayout>
