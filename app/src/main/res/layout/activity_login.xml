@@ -119,17 +119,15 @@
         android:textColor="#666"
         android:textStyle="bold"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvSignUpText2"
+        app:layout_constraintTop_toBottomOf="@+id/tvForgotPassword"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="32dp"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- Regístrate -->
     <TextView
         android:id="@+id/tvSignUpText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
         android:clickable="true"
         android:focusable="true"
         android:minHeight="48dp"
@@ -137,8 +135,9 @@
         android:textColor="#0A57B8"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSignUpText1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
