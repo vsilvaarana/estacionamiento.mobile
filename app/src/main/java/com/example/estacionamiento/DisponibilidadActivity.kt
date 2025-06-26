@@ -78,6 +78,27 @@ class DisponibilidadActivity : AppCompatActivity() {
                 var intent = Intent(this, DisponibilidadActivity::class.java)
                 startActivity(intent)
             }
+
+            R.id.menu_cerrar_sesion -> {
+                var intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.menu_historial -> {
+                var intent = Intent(this, ReservaHistoriaActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.menu_vehiculos -> {
+                var intent = Intent(this, UsuarioVehiculoActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.menu_realizar_reserva -> {
+                var intent = Intent(this, ReservaCrearActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.menu_reserva_activa -> {
+                var intent = Intent(this, ReservaStatusActivity::class.java)
+                startActivity(intent)
+            }
         }
         return super.onOptionsItemSelected(item)
     }

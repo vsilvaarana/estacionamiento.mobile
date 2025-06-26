@@ -16,8 +16,21 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Estacionamiento"
+            android:text="Bienvenido"
             android:textSize="40dp" />
+
+
+        <ImageView
+            android:id="@+id/logoImageView"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@drawable/estacionamiento"
+            android:contentDescription="Logo"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="32dp"
+            android:scaleType="centerInside" />
 
     </LinearLayout>
 
@@ -30,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="50dp"
-            android:text="Ir"
+            android:text="Reservar"
             android:paddingLeft="50dp"
             android:paddingRight="50dp"/>
     </LinearLayout>
