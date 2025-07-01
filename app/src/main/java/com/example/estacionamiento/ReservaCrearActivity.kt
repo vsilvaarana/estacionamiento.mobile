@@ -1,9 +1,11 @@
 package com.example.estacionamiento
 
+import Util.Common
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -19,6 +21,15 @@ class ReservaCrearActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        val util = Util.Common()
+        val fecha = findViewById<EditText>(R.id.etFecha)
+        val hora = findViewById<EditText>(R.id.etHora)
+        val horaFin = findViewById<EditText>(R.id.etHoraFin)
+        val calendar = util.SoloFecha(this, fecha)
+
+        util.SoloHora(this, hora, calendar)
+        util.SoloHora(this, horaFin, calendar)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
