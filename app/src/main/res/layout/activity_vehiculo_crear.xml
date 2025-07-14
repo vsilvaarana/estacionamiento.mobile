@@ -28,6 +28,7 @@
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/ivFoto"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginLeft="155dp"

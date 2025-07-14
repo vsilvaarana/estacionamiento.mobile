@@ -2,56 +2,51 @@ package com.example.estacionamiento
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ListView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONException
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ReservaHistoriaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_reserva_historia)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        val reservas: ArrayList<String> = ArrayList()
-        reservas.add("Space 1 - 01/06/2025")
-        reservas.add("Space 2 - 02/06/2025")
-        reservas.add("Space 1 - 04/06/2025")
-        reservas.add("Space 1 - 05/06/2025")
+        val fechaActual = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val util = Util.Common()
+        val desde = findViewById<EditText>(R.id.txtFechaDesde)
+        val hasta = findViewById<EditText>(R.id.txtFechaHasta)
+        val calendar = util.SoloFecha(this, desde)
+        val calendar2 = util.SoloFecha(this, hasta)
 
-        val listview = findViewById<ListView>(R.id.lstReservas)
+        desde.setText(fechaActual.format(calendar.time))
+        hasta.setText(fechaActual.format(calendar.time))
 
-        if (listview != null) {
-            val adaptador = ArrayAdapter (
-                this,
-                android.R.layout.simple_list_item_1,
-                reservas
-            )
+        val btn = findViewById<Button>(R.id.btnBuscarReservas)
 
-            listview.adapter = adaptador
-
-            listview.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
-                val value = parent.getItemAtPosition(position) as String
-
-                Toast.makeText(
-                    this@ReservaHistoriaActivity,
-                    value,
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+        btn.setOnClickListener {
+            buscar()
         }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -92,5 +87,61 @@ class ReservaHistoriaActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun buscar(){
+
+        val usuarioId = 1
+        val desde = findViewById<EditText>(R.id.txtFechaDesde)
+        val hasta = findViewById<EditText>(R.id.txtFechaHasta)
+        val fechaInicio = reformatearFecha(desde.text.toString())
+        val fechaFin = reformatearFecha(hasta.text.toString())
+
+        val url = "https://f2hq9czze2.execute-api.us-east-1.amazonaws.com/v1/api/Reserva/ListarPorUsuario?usuarioId=$usuarioId&fechaInicio=$fechaInicio&fechaFin=$fechaFin&tipo=0"
+
+        val stringRequest = JsonArrayRequest(Request.Method.GET, url, null, {
+                response ->
+            try {
+                //val jsonArray = response.getJSONArray("data")
+
+                val jsonArray = response // JSONArray(response.toString())
+                Log.i("======>", jsonArray.toString())
+                val items = mutableListOf<String>()
+                for (i in 0 until jsonArray.length()) {
+                    val reservas = jsonArray.getJSONObject(i)
+                    items.add("${reservas.getString("placa")} - ${reservas.getString("espacio")} - ${reservas.getString("fecha")}")
+                }
+
+                val lstReservas = findViewById<ListView>(R.id.lstReservas)
+                val adaptador = ArrayAdapter(
+                    this,
+                    android.R.layout.simple_list_item_1,
+                    items
+                )
+                lstReservas.adapter = adaptador
+
+            } catch (e: JSONException) {
+                Log.i("======>", "Error:")
+                Log.i("======>", e.message.toString())
+            }
+
+        }, {
+                error ->
+            Log.i("=======", error.toString())
+        } )
+
+        val requestQueue = Volley.newRequestQueue(this)
+        requestQueue.add(stringRequest)
+    }
+
+    fun reformatearFecha(fechaOriginal: String): String {
+        return try {
+            val formatoEntrada = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            val formatoSalida = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
+            val fecha = formatoEntrada.parse(fechaOriginal) ?: return ""
+            formatoSalida.format(fecha)
+        } catch (e: Exception) {
+            "" // Error de formato
+        }
     }
 }

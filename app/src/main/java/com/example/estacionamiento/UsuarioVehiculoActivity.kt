@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.ListView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -38,33 +41,39 @@ class UsuarioVehiculoActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-//        val vehiculos: ArrayList<String> = ArrayList()
-//        vehiculos.add("Honda Civic - ABC123")
-//        vehiculos.add("Toyota Camry - DEF456")
-//        vehiculos.add("Honda Civic - GHI321")
-//        vehiculos.add("Ford Focus - XYZ-987")
-//
-//        val listview = findViewById<ListView>(R.id.lstUsuarioVehiculo)
-//
-//        if (listview != null) {
-//            val adaptador = ArrayAdapter (
-//                this,
-//                android.R.layout.simple_list_item_1,
-//                vehiculos
-//            )
-//
-//            listview.adapter = adaptador
-//
-//            listview.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
-//                val value = parent.getItemAtPosition(position) as String
-//
-//                Toast.makeText(
-//                    this@UsuarioVehiculoActivity,
-//                    value,
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
-//        }
+        /*val vehiculos: ArrayList<String> = ArrayList()
+        vehiculos.add("Honda Civic - ABC123")
+        vehiculos.add("Toyota Camry - DEF456")
+        vehiculos.add("Honda Civic - GHI321")
+        vehiculos.add("Ford Focus - XYZ-987")
+
+        val listview = findViewById<ListView>(R.id.lstUsuarioVehiculo)
+
+        if (listview != null) {
+            val adaptador = ArrayAdapter (
+                this,
+                android.R.layout.simple_list_item_1,
+                vehiculos
+            )
+
+            listview.adapter = adaptador
+
+            listview.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+                val value = parent.getItemAtPosition(position) as String
+
+                val placa = value.split('-')[1].toString()
+                Toast.makeText(
+                    this@UsuarioVehiculoActivity,
+                    placa,
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                val intent = Intent(this, VehiculoCrearActivity::class.java)
+                intent.putExtra("item_key", placa)
+                startActivity(intent)
+            }
+        }*/
+
 
         buscar()
     }
