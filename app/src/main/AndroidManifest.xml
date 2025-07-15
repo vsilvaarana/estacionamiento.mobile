@@ -33,7 +33,7 @@
             android:name=".ReservaCrearActivity"
             android:exported="false" />
         <activity
-            android:name=".CrearUsuarioActivity"
+            android:name=".UsuarioCrearActivity"
             android:exported="false" />
         <activity
             android:name=".ForgotPasswordActivity"

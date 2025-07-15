@@ -18,7 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class DisponibilidadActivity : AppCompatActivity() {
+class DisponibilidadActivity : BaseMenuActivity() {
 
     private lateinit var datePicker: EditText
     private lateinit var timeFrom: EditText
@@ -34,51 +34,14 @@ class DisponibilidadActivity : AppCompatActivity() {
             insets
         }
 
-        datePicker = findViewById(R.id.datePicker)
-        timeFrom = findViewById(R.id.timeFrom)
-        timeTo = findViewById(R.id.timeTo)
+        val util = Util.Common()
+        val fecha = findViewById<EditText>(R.id.datePicker)
+        val hora = findViewById<EditText>(R.id.timeFrom)
+        val horaFin = findViewById<EditText>(R.id.timeTo)
+        val calendar = util.SoloFecha(this, fecha)
 
-        val calendar = Calendar.getInstance()
-
-        // Fecha
-        datePicker.setOnClickListener {
-            DatePickerDialog(
-                this,
-                { _, year, month, dayOfMonth ->
-                    val formattedDate = String.format("%02d/%02d/%04d", dayOfMonth, month + 1, year)
-                    datePicker.setText(formattedDate)
-                },
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)
-            ).show()
-        }
-
-        // Hora desde
-        timeFrom.setOnClickListener {
-            TimePickerDialog(
-                this,
-                { _, hourOfDay, minute ->
-                    timeFrom.setText(formatTime(hourOfDay, minute))
-                },
-                calendar.get(Calendar.HOUR_OF_DAY),
-                calendar.get(Calendar.MINUTE),
-                false
-            ).show()
-        }
-
-        // Hora hasta
-        timeTo.setOnClickListener {
-            TimePickerDialog(
-                this,
-                { _, hourOfDay, minute ->
-                    timeTo.setText(formatTime(hourOfDay, minute))
-                },
-                calendar.get(Calendar.HOUR_OF_DAY),
-                calendar.get(Calendar.MINUTE),
-                false
-            ).show()
-        }
+        util.SoloHora(this, hora, calendar)
+        util.SoloHora(this, horaFin, calendar)
 
         val pisos = arrayOf(
             "Piso 1",
@@ -116,52 +79,5 @@ class DisponibilidadActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.principal, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_inicio -> {
-                var intent = Intent(this, PrincipalActivity::class.java)
-                startActivity(intent)
-            }
-            R.id.menu_disponibilidad -> {
-                var intent = Intent(this, DisponibilidadActivity::class.java)
-                startActivity(intent)
-            }
-
-            R.id.menu_cerrar_sesion -> {
-                var intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
-            }
-            R.id.menu_historial -> {
-                var intent = Intent(this, ReservaHistoriaActivity::class.java)
-                startActivity(intent)
-            }
-            R.id.menu_vehiculos -> {
-                var intent = Intent(this, UsuarioVehiculoActivity::class.java)
-                startActivity(intent)
-            }
-            R.id.menu_realizar_reserva -> {
-                var intent = Intent(this, ReservaCrearActivity::class.java)
-                startActivity(intent)
-            }
-            R.id.menu_reserva_activa -> {
-                var intent = Intent(this, ReservaStatusActivity::class.java)
-                startActivity(intent)
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    private fun formatTime(hourOfDay: Int, minute: Int): String {
-        val amPm = if (hourOfDay >= 12) "PM" else "AM"
-        val hour = if (hourOfDay % 12 == 0) 12 else hourOfDay % 12
-        val min = minute.toString().padStart(2, '0')
-        return "$hour:$min $amPm"
     }
 }
