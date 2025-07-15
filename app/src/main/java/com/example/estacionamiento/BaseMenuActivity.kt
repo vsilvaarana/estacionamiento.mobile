@@ -27,8 +27,13 @@ open class BaseMenuActivity : AppCompatActivity() {
                 return true
             }
             R.id.menu_cerrar_sesion -> {
+                val prefs = getSharedPreferences("usuario", MODE_PRIVATE)
+                with(prefs.edit()) {
+                    clear()
+                    apply()
+                }
                 startActivity(Intent(this, LoginActivity::class.java))
-                return true
+                finish()
             }
             R.id.menu_historial -> {
                 startActivity(Intent(this, ReservaHistoriaActivity::class.java))

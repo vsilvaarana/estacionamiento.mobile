@@ -27,9 +27,6 @@
             android:name=".ReservaStatusActivity"
             android:exported="false" />
         <activity
-            android:name=".ReservaRealizadaActivity"
-            android:exported="false" />
-        <activity
             android:name=".ReservaCrearActivity"
             android:exported="false" />
         <activity
