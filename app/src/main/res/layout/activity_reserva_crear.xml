@@ -33,6 +33,7 @@
             android:text="Espacio"
             android:textSize="20sp"/>
         <EditText
+            android:id="@+id/etEspacio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -132,6 +133,7 @@
             android:textSize="20sp"/>
 
         <EditText
+            android:id="@+id/etPlaca"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -154,8 +156,6 @@
             android:src="@drawable/car1" />
     </LinearLayout>
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -164,10 +164,12 @@
         android:gravity="center_vertical">
 
         <Button
+            android:id="@+id/btnCrear"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:paddingLeft="50dp"
             android:paddingRight="50dp"
+            android:onClick="crear"
             android:text="Reserva" />
     </LinearLayout>
 </LinearLayout>

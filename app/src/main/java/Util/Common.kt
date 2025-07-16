@@ -11,6 +11,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.example.estacionamiento.R
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class Common {
 
@@ -94,5 +96,16 @@ class Common {
 
     fun limpiarCampos(vararg campos: EditText) {
         campos.forEach { it.text.clear() }
+    }
+
+    public fun reformatearFecha(fechaOriginal: String, formato: String): String {
+        return try {
+            val formatoEntrada = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            val formatoSalida = SimpleDateFormat(formato, Locale.getDefault())
+            val fecha = formatoEntrada.parse(fechaOriginal) ?: return ""
+            formatoSalida.format(fecha)
+        } catch (e: Exception) {
+            "" // Error de formato
+        }
     }
 }

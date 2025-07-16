@@ -42,6 +42,7 @@ class UsuarioCrearActivity : AppCompatActivity() {
             insets
         }
 
+
         val util = Util.Common()
         txtNombresC = findViewById(R.id.txtNombresC)
         txtApellidosC = findViewById(R.id.txtApellidosC)
