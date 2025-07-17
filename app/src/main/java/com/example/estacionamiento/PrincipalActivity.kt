@@ -33,8 +33,7 @@ class PrincipalActivity : BaseMenuActivity() {
 
         //se valida si esta logueado
         if (prefs.getBoolean("logueado", false)) {
-            //Toast.makeText(this, "Hola $nombre $apellido", Toast.LENGTH_SHORT).show()
-            util.mostrarToastPersonalizado(this, "Hola $nombre $apellido", TipoToast.EXITO)
+            //util.mostrarToastPersonalizado(this, "Bienvenido, $nombre $apellido", TipoToast.EXITO)
         } else {
             with(prefs.edit()) {
                 clear()
@@ -50,6 +49,22 @@ class PrincipalActivity : BaseMenuActivity() {
         btnIr.setOnClickListener {
             var intent = Intent(this, DisponibilidadActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val util = Util.Common()
+        val prefs = getSharedPreferences("usuario", MODE_PRIVATE)
+        val mostrar = prefs.getBoolean("mostrarBienvenida", false)
+
+        if (mostrar) {
+            val nombre = prefs.getString("nombre", "")
+            val apellido = prefs.getString("apellido", "")
+            util.mostrarToastPersonalizado(this, "Bienvenido, $nombre $apellido", TipoToast.EXITO)
+            // 🔄 Evita volver a mostrarlo
+            prefs.edit().putBoolean("mostrarBienvenida", false).apply()
         }
     }
 }

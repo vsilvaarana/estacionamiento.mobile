@@ -1,28 +1,37 @@
 package com.example.estacionamiento
 
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
+import Util.Estacionamiento
+import Util.EstacionamientoAdapter
+import Util.TipoToast
 import android.content.Intent
-import android.icu.util.Calendar
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.EditText
+import android.widget.Button
+import android.widget.ListView
 import android.widget.Spinner
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONException
+import org.json.JSONObject
 
 class DisponibilidadActivity : BaseMenuActivity() {
 
-    private lateinit var datePicker: EditText
-    private lateinit var timeFrom: EditText
-    private lateinit var timeTo: EditText
+    private lateinit var spinner: Spinner
+    private lateinit var recycler: RecyclerView
+    private lateinit var adapter: EstacionamientoAdapter
+
+    private val allSpots = mutableListOf<Estacionamiento>()
+    private val displayedSpots = mutableListOf<Estacionamiento>()
+    private var selectedSpotId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,44 +43,61 @@ class DisponibilidadActivity : BaseMenuActivity() {
             insets
         }
 
-        val util = Util.Common()
-        val fecha = findViewById<EditText>(R.id.datePicker)
-        val hora = findViewById<EditText>(R.id.timeFrom)
-        val horaFin = findViewById<EditText>(R.id.timeTo)
-        val calendar = util.SoloFecha(this, fecha)
+        spinner = findViewById(R.id.spinner_pisos)
+        recycler = findViewById(R.id.recycler_espacios)
+        recycler.layoutManager = GridLayoutManager(this, 2)
 
-        util.SoloHora(this, hora, calendar)
-        util.SoloHora(this, horaFin, calendar)
+        /*
+        // Cargar espacios simulados
+        allSpots.addAll(listOf(
+            Estacionamiento("E1", 1, true),
+            Estacionamiento("E2", 1, false),
+            Estacionamiento("E3", 1, false),
+            Estacionamiento("E4", 1, true),
+            Estacionamiento("E5", 1, false),
+            Estacionamiento("E6", 1, true),
+            Estacionamiento("E7", 1, false),
+            Estacionamiento("E8", 1, false)
+        ))
+        */
 
-        val pisos = arrayOf(
-            "Piso 1",
-            "Piso 2",
-            "Piso 3",
-            "Piso 4",
-            "Piso 5"
-        )
-        val spinner = findViewById<Spinner>(R.id.spPisos)
-        if (spinner != null){
-            val  adaptador = ArrayAdapter(
+        adapter = EstacionamientoAdapter(displayedSpots) { spot ->
+            selectedSpotId = spot.id
+            displayedSpots.forEachIndexed { i, s ->
+                displayedSpots[i] = s.copy(isSelected = s.id == spot.id)
+            }
+            adapter.notifyDataSetChanged()
+        }
+        recycler.adapter = adapter
+
+        loadPisos()
+
+        findViewById<Button>(R.id.BtnConfirmar).setOnClickListener {
+            selectedSpotId?.let { sendSpotSelection(it) }
+        }
+    }
+
+    private fun loadPisos() {
+        val pisos = listOf(1, 2, 3)
+
+        if(spinner != null) {
+            val adaptador = ArrayAdapter(
                 this,
-                android.R.layout.simple_spinner_item,
+                android.R.layout.simple_spinner_dropdown_item,
                 pisos
             )
             spinner.adapter = adaptador
 
             spinner.onItemSelectedListener = object :
-                AdapterView.OnItemSelectedListener{
+                AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parent: AdapterView<*>?,
                     view: View?,
                     position: Int,
                     id: Long
                 ) {
-                    Toast.makeText(
-                        this@DisponibilidadActivity,
-                        pisos[position],
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    val selectedFloor = pisos[position]
+                    loadEspacios(selectedFloor)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -79,5 +105,57 @@ class DisponibilidadActivity : BaseMenuActivity() {
                 }
             }
         }
+    }
+
+    private fun loadEspacios(floor: Int) {
+        /*
+        displayedSpots.clear()
+        displayedSpots.addAll(allSpots.filter { it.floor == floor })
+        adapter.notifyDataSetChanged()*/
+
+        val url = "https://ya8f30cdbg.execute-api.us-east-1.amazonaws.com/v1/estacionamiento?piso=$floor"
+
+        val stringRequest = JsonObjectRequest(
+            Request.Method.GET, url, null, {
+                response ->
+                displayedSpots.clear()
+                try {
+                    val jsonArray = response.getJSONArray("data")
+                    Log.i("=====>", jsonArray.toString())
+
+                    for (i in 0 until jsonArray.length()){
+                        val obj = jsonArray.getJSONObject(i)
+                        val spot = Estacionamiento(
+                            id = obj.getString("espacio"),
+                            floor = floor,
+                            isOccupied = obj.getBoolean("estado")
+                        )
+                        displayedSpots.add(spot)
+                    }
+                    adapter.notifyDataSetChanged()
+                } catch (e: JSONException){
+                    Log.i("=====>", e.message.toString())
+                }
+            },
+            {
+                error ->
+                Log.i("=====>", error.toString())
+            }
+        )
+
+        val requestQueue = Volley.newRequestQueue(this)
+        requestQueue.add(stringRequest)
+    }
+
+    private fun sendSpotSelection(spotId: String) {
+        val util = Util.Common()
+        util.mostrarToastPersonalizado(this, spotId, TipoToast.EXITO)
+
+        /*val intent = Intent(this, ReservaCrearActivity::class.java)
+        intent.putExtra("spotId", spotId)  // enviar el ID
+        startActivity(intent)
+        //Cortar la linea de abajo para recuperar el id en el otro activity
+        val id = intent.getStringExtra("id")
+        */
     }
 }

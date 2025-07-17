@@ -19,8 +19,10 @@ open class BaseMenuActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_inicio -> {
-                startActivity(Intent(this, PrincipalActivity::class.java))
-                return true
+                if (this !is PrincipalActivity) {
+                    startActivity(Intent(this, PrincipalActivity::class.java))
+                    finish()
+                }
             }
             R.id.menu_disponibilidad -> {
                 startActivity(Intent(this, DisponibilidadActivity::class.java))

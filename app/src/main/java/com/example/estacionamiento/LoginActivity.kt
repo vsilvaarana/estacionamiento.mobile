@@ -82,6 +82,7 @@ class LoginActivity : AppCompatActivity() {
                                 putString("tipodocumento", usuario.getString("tipodocumento"))
                                 putString("documento", usuario.getString("documento"))
                                 putBoolean("logueado", true)
+                                putBoolean("mostrarBienvenida", true)
                                 apply()
                             }
 
