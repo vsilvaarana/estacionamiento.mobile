@@ -40,26 +40,34 @@
             android:text="Reservado"
             android:textSize="40sp"/>
 
-        <TextView android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvCodigo"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:text="Space 1"
+            android:text="-"
             android:textAlignment="center"
             android:textSize="20sp"/>
 
-        <TextView android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvPlaca"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="21/06/2025"
+            android:text="-"
             android:textAlignment="center"
             android:textSize="20sp"/>
 
-        <TextView android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvFecha"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="3:00PM - 5:00PM"
+            android:text="-"
             android:textAlignment="center"
             android:textSize="20sp"/>
+
+
 
         <Button
             android:layout_width="match_parent"
